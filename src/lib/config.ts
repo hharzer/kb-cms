@@ -8,6 +8,7 @@ export interface Config {
 	site_description?: string
 	site_keywords?: SiteKeyword[]
 	posts_per_page?: number
+	snippets_per_page: number
 	twitter_account?: string
 	github_account?: string
 	media_library?: MediaLibrary

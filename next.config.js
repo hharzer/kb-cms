@@ -1,13 +1,32 @@
-const withMdxEnhanced = require("next-mdx-enhanced")
-const rehypePrism = require("@mapbox/rehype-prism")
+const withSourceMaps = require("@zeit/next-source-maps")
+const HoneybadgerSourceMapPlugin = require("@honeybadger-io/webpack")
+const { execSync } = require("child_process")
 
-module.exports = withMdxEnhanced({
+const { HONEYBADGER_API_KEY, NODE_ENV } = process.env
+const HONEYBADGER_REVISION = execSync("git rev-parse HEAD").toString().trim()
+/* withMdxEnhanced({
 	layoutPath: "src/layouts",
 	defaultLayout: true,
 	rehypePlugins: [rehypePrism],
-})({
-	pageExtensions: ["mdx", "tsx"],
-	webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+}) */
+
+module.exports = {
+	env: {
+		HONEYBADGER_API_KEY: HONEYBADGER_API_KEY,
+		HONEYBADGER_REVISION: HONEYBADGER_REVISION,
+	},
+	webpack: (config, options) => {
+		/* 		if (!options.isServer) {
+			config.resolve.alias["honeybadger"] = "honeybadger-js"
+		}
+		if (HONEYBADGER_API_KEY && NODE_ENV === "production") {
+			config.plugins.push(
+				new HoneybadgerSourceMapPlugin({
+					apiKey: HONEYBADGER_API_KEY,
+					revision: HONEYBADGER_REVISION,
+				})
+			)
+		} */
 		config.module.rules.push(
 			...[
 				{
@@ -23,4 +42,4 @@ module.exports = withMdxEnhanced({
 		)
 		return config
 	},
-})
+}

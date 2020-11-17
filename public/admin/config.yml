@@ -87,10 +87,59 @@ collections:
                 name: "name"
                 widget: "string"
                 hint: "Tag name for displaying on the site"
-
+  - name: "snippet"
+    label: "Snippet"
+    description: "Code Snippet"
+    create: true
+    folder: "cms/snippets"
+    slug: "{{slug}}"
+    summary: "{{title}}"
+    identifier_field: slug
+    fields: 
+      - label: "Slug"
+        name: "slug"
+        widget: "string"
+      - label: "Title"
+        name: "title"
+        widget: "string"
+      - label: "Publish Date"
+        name: "date"
+        widget: "datetime"
+        format: "YYYY-MM-DD"
+        dateFormat: "YYYY-MM-DD"
+        timeFormat: false
+      - label: Tags
+        label_singular: "Tag"
+        name: "tags"
+        widget: list
+        summary: "{{fields.tag}}"
+        field:
+          label: Tag
+          name: tag
+          widget: relation
+          collection: "meta"
+          file: "tags"
+          searchFields:
+            - "tags.*.name"
+          displayFields:
+            - "tags.*.name"
+          valueField: "tags.*.slug"
+      - label: "Source Snippets"
+        label_singular: "Source"
+        name: "source"
+        widget: list
+        min: 1
+        field:
+          name: "code"
+          widget: "code"
+          default_language: "javascript"
+          allow_language_selection: true
+      - label: "Comment"
+        name: "comment"
+        widget: "markdown"
   - name: "posts"
     label: "Posts"
-    folder: "src/pages/posts"
+    folder: "cms/posts"
     extension: "mdx"
     format: "frontmatter"
     create: true

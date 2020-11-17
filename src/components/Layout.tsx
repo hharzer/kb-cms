@@ -1,10 +1,24 @@
 import Head from "next/head"
-import Navigation from "./Navigation"
 
-type Props = {
+import Navigation from "./Navigation"
+import { BasicMetadataProps, default as BasicMeta } from "./meta/BasicMeta"
+import * as $ from "ramda"
+
+import { default as EmptySvg } from "../assets/empty.svg"
+
+type DefaultProps = { children: React.ReactNode; meta: BasicMetadataProps }
+
+export interface LayoutProps {
 	children: React.ReactNode
+	isFallback?: boolean
+	meta?: BasicMetadataProps
 }
-export default function Layout({ children }: Props) {
+export default function Layout(props: LayoutProps) {
+	const { children, meta, isFallback = false } = props
+
+	const renderMeta = $.and($.not(isFallback), $.isNil(meta))
+	const renderFallback = $.or($.not(isFallback), $.isNil(meta))
+
 	return (
 		<div className="root">
 			<Head>
@@ -13,11 +27,12 @@ export default function Layout({ children }: Props) {
 				<link rel="manifest" href="/site.webmanifest" />
 				<link rel="apple-touch-icon" href="/logo_new_gbltfb.png" />
 				<meta name="theme-color" content="#fff" />
+				{renderMeta && <BasicMeta {...meta} />}
 			</Head>
 			<nav>
 				<Navigation />
 			</nav>
-			<main>{children}</main>
+			<main>{renderFallback ? <EmptySvg /> : children}</main>
 			<style jsx>
 				{`
 					.root {

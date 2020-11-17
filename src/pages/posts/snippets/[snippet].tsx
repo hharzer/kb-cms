@@ -1,13 +1,17 @@
 import { GetStaticPaths, GetStaticProps } from "next"
 import Layout from "../../../components/Layout"
-import PostList from "../../../components/PostList"
+import SnippetList from "../../../components/SnippetList"
 import config from "../../../lib/config"
-import { countPosts, listPostContent, PostContent } from "../../../lib/posts"
 import { useRouter } from "next/router"
+import {
+	countSnippets,
+	listSnippetContent,
+	SnippetContent,
+} from "../../../lib/snippets"
 import { listTags, TagContent } from "../../../lib/tags"
 
 type Props = {
-	posts: PostContent[]
+	Snippets: SnippetContent[]
 	tags: TagContent[]
 	page: number
 	pagination: {
@@ -15,9 +19,9 @@ type Props = {
 		pages: number
 	}
 }
-export default function Page({ posts, tags, pagination, page }: Props) {
-	const url = `/posts/page/${page}`
-	const title = "All posts"
+export default function Page({ Snippets, tags, pagination, page }: Props) {
+	const url = `/snippets/page/${page}`
+	const title = "All Snippets"
 	const router = useRouter()
 	return (
 		<Layout
@@ -27,23 +31,23 @@ export default function Page({ posts, tags, pagination, page }: Props) {
 			}}
 			isFallback={router.isFallback}
 		>
-			<PostList posts={posts} tags={tags} pagination={pagination} />
+			<SnippetList snippets={Snippets} tags={tags} pagination={pagination} />
 		</Layout>
 	)
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 	const page = parseInt(params.page as string)
-	const posts = listPostContent(page, config.posts_per_page)
+	const Snippets = listSnippetContent(page, config.snippets_per_page)
 	const tags = listTags()
 	const pagination = {
 		current: page,
-		pages: Math.ceil(countPosts() / config.posts_per_page),
+		pages: Math.ceil(countSnippets() / config.snippets_per_page),
 	}
 	return {
 		props: {
 			page,
-			posts,
+			Snippets,
 			tags,
 			pagination,
 		},
@@ -51,7 +55,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-	const pages = Math.ceil(countPosts() / config.posts_per_page)
+	const pages = Math.ceil(countSnippets() / config.snippets_per_page)
+	if (pages === 0) {
+		return {
+			paths: [],
+			fallback: true,
+		}
+	}
 	const paths = Array.from(Array(pages - 1).keys()).map((it) => ({
 		params: { page: (it + 2).toString() },
 	}))

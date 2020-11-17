@@ -1,12 +1,10 @@
 import { GetStaticPaths, GetStaticProps } from "next"
 import Layout from "../../../components/Layout"
-import BasicMeta from "../../../components/meta/BasicMeta"
-import OpenGraphMeta from "../../../components/meta/OpenGraphMeta"
+import { useRouter } from "next/router"
 import TagPostList from "../../../components/TagPostList"
 import config from "../../../lib/config"
 import { countPosts, listPostContent, PostContent } from "../../../lib/posts"
 import { getTag, listTags, TagContent } from "../../../lib/tags"
-import Head from "next/head"
 
 type Props = {
 	posts: PostContent[]
@@ -20,10 +18,15 @@ type Props = {
 export default function Index({ posts, tag, pagination, page }: Props) {
 	const url = `/posts/tags/${tag.name}` + (page ? `/${page}` : "")
 	const title = tag.name
+	const router = useRouter()
 	return (
-		<Layout>
-			<BasicMeta url={url} title={title} />
-			<OpenGraphMeta url={url} title={title} />
+		<Layout
+			meta={{
+				url,
+				title,
+			}}
+			isFallback={router.isFallback}
+		>
 			<TagPostList posts={posts} tag={tag} pagination={pagination} />
 		</Layout>
 	)

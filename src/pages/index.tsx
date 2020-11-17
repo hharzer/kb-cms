@@ -1,12 +1,15 @@
 import Layout from "../components/Layout"
-import BasicMeta from "../components/meta/BasicMeta"
-import OpenGraphMeta from "../components/meta/OpenGraphMeta"
 
 export default function Index() {
+	const title = "Home"
+	const url = "/"
 	return (
-		<Layout>
-			<BasicMeta url={"/"} />
-			<OpenGraphMeta url={"/"} />
+		<Layout
+			meta={{
+				url,
+				title,
+			}}
+		>
 			<div className="container"></div>
 			<style jsx>{`
 				.container {

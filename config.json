@@ -1,28 +1,29 @@
 {
-  "base_url": "https://cms.hrzr.eu",
-  "site_title": "kb",
-  "logo_url": "https://res.cloudinary.com/fnexus/image/upload/v1604379104/static/logo_white.svg",
-  "$schema": "http://json.schemastore.org/netlify.json",
-  "site_description": "Private CMS",
-  "site_keywords": [
-    {
-      "keyword": "Next.js"
-    },
-    {
-      "keyword": "Netlify"
-    },
-    {
-      "keyword": "React"
-    }
-  ],
-  "posts_per_page": 5,
-  "twitter_account": "@hlgrz",
-  "github_account": "hharzer",
-  "media_library": {
-    "name": "cloudinary",
-    "config": {
-      "cloud_name": "fnexus",
-      "api_key": "937727335629468"
-    }
-  }
+	"base_url": "https://cms.hrzr.eu",
+	"site_title": "kb",
+	"logo_url": "https://res.cloudinary.com/fnexus/image/upload/v1604379104/static/logo_white.svg",
+	"$schema": "http://json.schemastore.org/netlify.json",
+	"site_description": "Private CMS",
+	"site_keywords": [
+		{
+			"keyword": "Next.js"
+		},
+		{
+			"keyword": "Netlify"
+		},
+		{
+			"keyword": "React"
+		}
+	],
+	"posts_per_page": 5,
+	"snippets_per_page": 5,
+	"twitter_account": "@hlgrz",
+	"github_account": "hharzer",
+	"media_library": {
+		"name": "cloudinary",
+		"config": {
+			"cloud_name": "fnexus",
+			"api_key": "937727335629468"
+		}
+	}
 }
