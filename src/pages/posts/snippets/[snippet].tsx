@@ -67,7 +67,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 	if (pages === 0) {
 		return {
 			paths: [],
-			fallback: true,
+			fallback: false,
 		}
 	}
 	const paths = Array.from(Array(pages - 1).keys()).map((it) => ({
@@ -75,6 +75,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 	}))
 	return {
 		paths: paths,
-		fallback: true,
+		fallback: false,
 	}
 }
