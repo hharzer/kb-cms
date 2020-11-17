@@ -1,13 +1,30 @@
-import config from "../../config.json";
+import config from "../../config.json"
 
-type Config = {
-  readonly base_url: string;
-  readonly site_title: string;
-  readonly site_description: string;
-  readonly site_keywords: { keyword: string }[];
-  readonly posts_per_page: number;
-  readonly twitter_account: string;
-  readonly github_account: string;
-};
+export interface Config {
+	base_url?: string
+	site_title?: string
+	logo_url?: string
+	$schema?: string
+	site_description?: string
+	site_keywords?: SiteKeyword[]
+	posts_per_page?: number
+	twitter_account?: string
+	github_account?: string
+	media_library?: MediaLibrary
+}
 
-export default config as Config;
+export interface MediaLibrary {
+	name?: string
+	config?: ConfigClass
+}
+
+export interface ConfigClass {
+	cloud_name?: string
+	api_key?: string
+}
+
+export interface SiteKeyword {
+	keyword?: string
+}
+
+export default config as Config
