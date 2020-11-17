@@ -1,9 +1,5 @@
-const withSourceMaps = require("@zeit/next-source-maps")
-const HoneybadgerSourceMapPlugin = require("@honeybadger-io/webpack")
 const { execSync } = require("child_process")
 
-const { HONEYBADGER_API_KEY, NODE_ENV } = process.env
-const HONEYBADGER_REVISION = execSync("git rev-parse HEAD").toString().trim()
 /* withMdxEnhanced({
 	layoutPath: "src/layouts",
 	defaultLayout: true,
@@ -11,10 +7,6 @@ const HONEYBADGER_REVISION = execSync("git rev-parse HEAD").toString().trim()
 }) */
 
 module.exports = {
-	env: {
-		HONEYBADGER_API_KEY: HONEYBADGER_API_KEY,
-		HONEYBADGER_REVISION: HONEYBADGER_REVISION,
-	},
 	webpack: (config, options) => {
 		/* 		if (!options.isServer) {
 			config.resolve.alias["honeybadger"] = "honeybadger-js"

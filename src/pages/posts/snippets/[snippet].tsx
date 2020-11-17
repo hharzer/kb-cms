@@ -3,6 +3,9 @@ import Layout from "../../../components/Layout"
 import SnippetList from "../../../components/SnippetList"
 import config from "../../../lib/config"
 import { useRouter } from "next/router"
+import { default as EmptySvg } from "../../../assets/empty.svg"
+import * as $ from "ramda"
+
 import {
 	countSnippets,
 	listSnippetContent,
@@ -22,6 +25,7 @@ type Props = {
 export default function Page({ Snippets, tags, pagination, page }: Props) {
 	const url = `/snippets/page/${page}`
 	const title = "All Snippets"
+	const renderEmpty = $.or($.isEmpty(tags), $.isNil(tags))
 	const router = useRouter()
 	return (
 		<Layout
@@ -31,7 +35,11 @@ export default function Page({ Snippets, tags, pagination, page }: Props) {
 			}}
 			isFallback={router.isFallback}
 		>
-			<SnippetList snippets={Snippets} tags={tags} pagination={pagination} />
+			{renderEmpty ? (
+				<EmptySvg />
+			) : (
+				<SnippetList snippets={Snippets} tags={tags} pagination={pagination} />
+			)}
 		</Layout>
 	)
 }

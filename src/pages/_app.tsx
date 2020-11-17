@@ -6,7 +6,7 @@ import Honeybadger from "honeybadger"
 // They are used by the Netlify CMS preview feature.
 import "../../public/styles/global.css"
 
-if (typeof window === "undefined" || !window) {
+/* if (typeof window === "undefined" || !window) {
 	// Node
 	// https://docs.honeybadger.io/lib/node.html#configuration
 	Honeybadger.configure({
@@ -25,7 +25,7 @@ if (typeof window === "undefined" || !window) {
 	// This is handy for testing; remove it in production.
 
 	window.Honeybadger = Honeybadger
-}
+} */
 
 export default function App(props: AppProps) {
 	const { Component, pageProps } = props
